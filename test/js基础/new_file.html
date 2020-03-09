@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			a = 1;
+			function test(e){
+				function e(){}
+				arguments[0] = 2;
+				console.log(e); //2
+				if(a){
+					var b = 3;
+				}
+				var c;
+				a = 4;
+				var a;
+				console.log(b) //undefined
+				f = 5;
+				console.log(c); //undefind
+				console.log(a); //4
+			}
+			var a;
+			test(a);
+			
+			// GO = {
+			// 	a: undefined -> 1,
+			// 	test: function test(e){...}
+			// }
+			
+			// AO = {
+			// 	e: undefined -> 1 -> function e(){} -> 2,
+			// 	b: undefined,
+			// 	c: undefined,
+			// 	a: undefined -> 4,
+			// 	f: undefined -> 5,
+			// }
+		</script>
+	</body>
+</html>

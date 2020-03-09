@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script type='text/javascript'>
+			function Cat(){}
+			function Car(color, brand, system){
+				this.color = color;
+				this.brand = brand;
+				this.system = system;
+			}
+			
+			// Car.prototype = {
+			// 	rom: 64,
+			// 	ram: 6,
+			// 	call: function (){
+			// 		console.log('this is function.')
+			// 	}
+			// }
+			
+			var car = new Car('red', 'ios', 'iphone');
+			// console.log(Car.prototype);
+			// constructor -> 构造函数本身
+			
+			//修改constructor的指向
+			Car.prototype = {
+				constructor: Cat
+			}
+			
+			function Dog(){}
+			Dog.prototype.name = '张三';
+			
+			Dog.prototype = {
+				name: '李四'
+			}
+			var dog = new Dog();
+			console.log(dog);
+		</script>
+	</body>
+</html>

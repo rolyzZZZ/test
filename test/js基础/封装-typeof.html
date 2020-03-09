@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			// 封装typeof
+			// typeof(null) -> object
+			// typeof(原始值) -> string number Boolean
+			// typeof(引用值) -> object
+			function rewTypeof(val){
+				var type = typeof(val);
+				var res = {
+					'[object Object]': 'object',
+					'[object Array]': 'array',
+					'[object Number]': 'object number',
+					'[object String]': 'object string',
+					'[object Boolean]': 'object boolean'
+				}
+				var toStr = Object.prototype.toString.call(val);
+				
+				if(val === null){
+					return 'null';
+				}else if(type === 'object'){
+					return res[toStr];
+				}else {
+					return type;
+				}
+			}
+			
+			console.log(rewTypeof(true))
+		</script>
+	</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>在原型上写遍历一个父元素的子元素节点</title>
+	</head>
+	<body>
+		<div>
+			<!-- 注释内容 -->
+			<h1>h1标签</h1>
+			<p>p标签</p>
+			<span>span标签</span>
+			<em>em标签</em>
+		</div>
+		
+		<script>
+			
+			var div = document.getElementsByTagName('div')[0];
+			// for(let i in div.childNodes){
+			// 	if(div.childNodes[i].nodeType == 1){
+			// 		console.log(div.childNodes[i])
+			// 	}
+			// }
+			Element.prototype.elemChildren = function(idx){
+				let childNode = this.childNodes,
+					type = typeof(idx),
+					temp;
+					
+				temp = {
+					length: 0,
+					push: Array.prototype.push,
+					splice: Array.prototype.splice
+				}
+				
+				for(var i in childNode){
+					if(childNode[i].nodeType === 1){
+						temp.push(childNode[i])
+					}
+				}
+				
+				if(idx !== undefined && type !== 'number'){
+					return undefined;
+				}
+				
+				return idx === undefined ? temp : temp[idx];
+			}
+			
+			console.log(div.elemChildren(1));
+		</script>
+	</body>
+</html>

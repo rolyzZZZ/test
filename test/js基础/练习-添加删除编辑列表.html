@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<input type="text" placeholder="输入需要添加的内容"/>
+		<button>添加</button>
+		<ul></ul>
+		
+		<script type="text/javascript">
+			var inp = document.getElementsByTagName('input')[0],
+				but = document.getElementsByTagName('button')[0],
+				oUl = document.getElementsByTagName('ul')[0],
+				code = 0,
+				idx;
+				
+			but.onclick = function(){
+				if(!inp.value){
+					alert('请先输入内容');
+					return;
+				}
+				// code 0 -> 添加  1 -> 编辑
+				if(code === 0){
+					var li = document.createElement('li'),
+						span = document.createElement('span'),
+						editBut = document.createElement('button'),
+						delBut = document.createElement('button');
+						
+					span.innerText = inp.value;
+					editBut.innerText = '编辑';
+					delBut.innerText = '删除';
+					
+					li.appendChild(span);
+					li.appendChild(editBut);
+					li.appendChild(delBut);
+					oUl.appendChild(li);
+					
+					editBut.addEventListener('click', edit, false);
+					delBut.addEventListener('click', del, false);
+					
+					inp.value = '';
+				}else {
+					var oLis = oUl.getElementsByTagName('li');
+					var	oLi = oLis[idx - 1];
+					
+					code = 0;
+					but.innerText = '添加';
+					oLi.children[0].innerText = inp.value;
+					inp.value = '';
+				}
+			}
+			
+			function edit(){
+				var oLis = oUl.getElementsByTagName('li'),
+					oLi = this.elemParent(1);
+				
+				code = 1;
+				idx = Array.prototype.indexOf.call(oLis, oLi) + 1;
+				inp.value = this.elemSibling(-1).innerText;
+				but.innerText = '编辑第' + idx + '行';
+			}
+			
+			function del(){
+				var oLis = oUl.getElementsByTagName('li'),
+					oLi = this.elemParent(1);
+				
+				oUl.removeChild(oLi);
+			}
+			
+			//封装寻找兄弟节点元素
+			Element.prototype.elemSibling = function (n){
+				var elem = this;
+				
+				while(n){
+					if(n > 0){
+						elem = elem.nextSibling;
+						while(elem && elem.nodeType !== 1){
+							elem = elem.nextSibling;
+						}
+						n--
+					}else if(n < 0){
+						elem = elem.previousSibling;
+						while(elem && elem.nodeType !== 1){
+							elem = elem.previousSibling;
+						}
+						n++;
+					}
+				}
+				
+				return elem;
+			}
+			
+			//封装寻找祖父元素节点
+			Element.prototype.elemParent = function (n){
+				var elem = this,
+					type = typeof(n);
+					
+				if(type === undefined || type !=='number'){
+					return elem.parentNode;
+				}
+				
+				while(n){
+					if(elem.nodeName === 'HTML'){
+						elem = null;
+						return elem;
+					}
+					
+					elem = elem.parentNode;
+					n--;
+				}
+				
+				return elem;
+			}
+		</script>
+	</body>
+</html>

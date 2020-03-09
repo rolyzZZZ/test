@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<div>
+		</div>
+		
+		<script type="text/javascript">
+			//clientX/Y -> 鼠标位置相对于当前可视区域的坐标(不包括滚动条的距离)
+			//layerX/Y  -> 与pageX/Y相同 ie11以下与clientX/Y相同
+			//screenX/Y -> 鼠标位置相对于屏幕的坐标
+			//X/Y		-> 与clientX/Y相同 FF不支持(火狐)
+			//pageX/Y	-> 位置相对于当前文档的坐标(包含滚动条   ie9以下不支持)
+			//offsetX/Y -> 位置相对于块级元素的坐标(包含边框	  Safari不支持)
+			
+			document.onclick = function (e){
+				var e = e || event;
+				
+				console.log(e.pageY, pagePos(e).y);
+			}
+			
+			//获取滚动条距离
+			function getScrollOffSet(){
+				if(window.pageXOffset){
+					return {
+						left: window.pageXOffset,
+						top: window.pageYOffset
+					}
+				}else{
+					return {
+						left: document.body.scrollLeft + document.documentElement.scrollLeft,
+						top: document.body.scrollTop + document.documentElement.scrollTop
+					}
+				}
+			}
+			//封装pageX/Y
+			function pagePos(e){
+				var sLeft = getScrollOffSet().left,
+					sTop = getScrollOffSet().top,
+					cLeft = document.documentElement.clienLeft || 0, //clientLeft是获取文档偏移距离 如果没有取0
+					cTop = document.documentElement.clientTop || 0;
+				
+				return {
+					x: e.clientX + sLeft - cLeft,
+					y: e.clientY + sTop - cTop
+				}
+			}
+		</script>
+	</body>
+</html>

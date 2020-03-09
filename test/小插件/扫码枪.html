@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+	</head>
+	<body>
+		<script>
+			window.onload = (e) => {
+				document.onkeydown = (e) => {
+					let nextCode, nextTime = '';
+					let lastTime = this.lastTime;
+					let code = this.code;
+					if (window.event) { // IE
+						nextCode = e.keyCode
+					} else if (e.which) { // Netscape/Firefox/Opera
+						nextCode = e.which
+					}
+					nextTime = new Date().getTime();
+					//字母上方 数字键0-9 对应键码值 48-57; 数字键盘 数字键0-9 对应键码值 96-105
+					if ((nextCode >= 48 && nextCode <= 57) || (nextCode >= 96 && nextCode <= 105)) {
+						let codes = {
+							'48': 48,
+							'49': 49,
+							'50': 50,
+							'51': 51,
+							'52': 52,
+							'53': 53,
+							'54': 54,
+							'55': 55,
+							'56': 56,
+							'57': 57,
+							'96': 48,
+							'97': 49,
+							'98': 50,
+							'99': 51,
+							'100': 52,
+							'101': 53,
+							'102': 54,
+							'103': 55,
+							'104': 56,
+							'105': 57
+						};
+						nextCode = codes[nextCode];
+						nextTime = new Date().getTime();
+					}
+					// 第二次输入延迟两秒，删除之前的数据重新计算
+					if (nextTime && lastTime && nextTime - lastTime > 2000) {
+						code = String.fromCharCode(nextCode);
+					} else {
+						code += String.fromCharCode(nextCode)
+					}
+					// 保存数据
+					this.nextCode = nextCode;
+					this.lastTime = nextTime;
+					this.code = code;
+					// 键入Enter
+					if (e.which == 13) {
+						// 判断 code 长度（这里就获取到条码值了，以下业务自由发挥）
+						code = $.trim(code)
+						console.log(code)
+						// if (code.length == 13) {
+						// 	this.$message('A类条码:' + code);
+						// } else if (code.length == 23) {
+						// 	this.$message('B类条码:' + code);
+						// } else if (code.length == 0) {
+						// 	this.$message('请输入条码');
+						// } else {
+						// 	this.$message('条码不合法：' + code);
+						// }
+						//键入回车务必清空code值
+						this.code = ''
+						return false;
+					}
+				}
+			}
+		</script>
+	</body>
+</html>

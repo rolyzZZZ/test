@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			// function test(){
+			// 	console.log(typeof(arguments)); // object 类数组
+			// }
+			// test();
+			
+			var test = function a(){ // 函数表达式忽略掉a 相当于 test = function(){}   a不存在
+				return 'a';
+			}
+			console.log(typeof(a)); // undefined
+		</script>
+	</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			function test(a, b, c){
+				console.log(arguments.callee.length);
+				console.log(arguments.length)
+				console.log(test.length)
+				test1()
+			}
+			test()
+			function test1(){
+				console.log(test1.caller);
+			}
+			
+			// function test(n){
+			// 	if(n < 1){
+			// 		return 0;
+			// 	}
+			// 	return n + test(n - 1);
+			// }
+			// console.log(test(100))
+			
+			// var num = (function (n){
+			// 	if(n < 1){
+			// 		return 0;
+			// 	}
+			// 	return n + arguments.callee(n - 1);
+			// })(100);
+			// 
+			// console.log(num);
+		</script>
+	</body>
+</html>

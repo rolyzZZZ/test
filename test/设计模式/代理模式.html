@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			div{
+				width: 200px;
+				height: 200px;
+			}
+			div img{
+				width: 100%;
+				height: 100%;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- http://i1.sinaimg.cn/ent/d/2008-06-04/U105P28T3D2048907F326DT20080604225106.jpg -->
+		<div id="box"></div>
+		<script>
+			function MyImg(id){
+				let img = new Image();
+				this.setSrc = function(src){
+					img.src = src;
+				}
+				document.getElementById(id).appendChild(img);
+			}
+			var proxyImg = (function(){
+				var newImg = new MyImg('box');
+				var oNewImg = new Image();
+				
+				oNewImg.onload = function(){
+					newImg.setSrc(oNewImg.src);
+				}
+				return function (src){
+					newImg.setSrc('./imgs/1.jpg');
+					oNewImg.src = src;
+				}
+			})();
+			proxyImg('http://i1.sinaimg.cn/ent/d/2008-06-04/U105P28T3D2048907F326DT20080604225106.jpg');
+		</script>
+	</body>
+</html>

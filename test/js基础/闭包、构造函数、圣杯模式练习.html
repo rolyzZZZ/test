@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			var inherit = (function (){
+				var Buffer = function (){}
+				return function (Target, Origin){
+					Buffer.prototype = Origin.prototype;
+					Target.prototype = new Buffer();
+					Target.prototype.constructor = Target;
+					Target.prototype.super_class = Origin;
+				}
+			})();
+			
+			var initDxw = (function (){
+				var Dxw = function (){}
+				Dxw.prototype = {
+					name: '程序员',
+					tool: '计算机',
+					work: '编写程序',
+					duration: '10h',
+					say: function (){
+						console.log(this.myName);
+					}
+				}
+				
+				function FrontEnd(){
+					this.lang = ['HTML', 'CSS', 'JavaScript'];
+					this.myName = '前端';
+				}
+				function BackEnd(){
+					this.lang = ['Node', 'Java', 'SQL'];
+					this.myName = '后端';
+				}
+				
+				inherit(FrontEnd, Dxw);
+				inherit(BackEnd, Dxw);
+				
+				FrontEnd.prototype.age = 18;
+				
+				return {
+					FrontEnd,
+					BackEnd
+				}
+			})();
+			new initDxw.FrontEnd().say();
+		</script>
+	</body>
+</html>

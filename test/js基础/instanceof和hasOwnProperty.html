@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			// var obj = {
+			// 	name: '张三',
+			// 	age: 100
+			// }
+			// console.log(obj.hasOwnProperty('name'))
+			// 
+			// function Car(){
+			// 	this.name = '李四';
+			// 	this.age = 99;
+			// }
+			// 
+			// Car.prototype = {
+			// 	sex: 0,
+			// 	height: 170
+			// }
+			// 
+			// Object.prototype.type = 'obj';
+			// 
+			// var car = new Car();
+			// 
+			// for(var key in car){
+			// 	if(car.hasOwnProperty(key)){
+			// 		console.log(key, car[key]);
+			// 	}
+			// }
+			
+			function Car(){}
+			var car = new Car();
+			
+			function Dog(){}
+			var dog = new Dog();
+			
+			console.log(dog instanceof Car);
+			console.log(car instanceof Car);
+			console.log([] instanceof Object);
+		</script>
+	</body>
+</html>

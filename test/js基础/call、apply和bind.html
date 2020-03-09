@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			// function Compute(){
+			// 	this.puls = function (a, b){
+			// 		console.log(a + b);
+			// 	}
+			// 	this.minus = function (a, b){
+			// 		console.log(a - b);
+			// 	}
+			// }
+			// 
+			// function FullCompute(){
+			// 	Compute.apply(this);
+			// 	
+			// 	this.mul = function (a, b){
+			// 		console.log(a * b);
+			// 	}
+			// 	this.div = function (a ,b){
+			// 		console.log(a / b);
+			// 	}
+			// }
+			// 
+			// var fullCom = new FullCompute();
+			// fullCom.puls(9, 3);
+			// fullCom.minus(9, 3);
+			// fullCom.mul(9, 3);
+			// fullCom.div(9, 3);
+			
+			var a = {
+				hobby: this.hobby,
+				play: function (sex, age){
+					console.log(this.name + '是' + sex + '今年' + age + '喜欢玩' + this.hobby);
+				}
+			}
+			var b = {
+				name: '李四',
+				hobby: '电脑',
+			}
+			a.play.call(b, '男生', 18);
+			//call改变this指向 并且立即执行函数
+			a.play.apply(b, ['男生', 18]);
+			a.play.bind(b, '男生', 18)();
+			//bind改变this指向后返回一个新的函数 不执行
+		</script>
+	</body>
+</html>

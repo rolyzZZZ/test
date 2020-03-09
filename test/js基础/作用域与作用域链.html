@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			// function a(){
+			// 	function b(){
+			// 		function c(){
+			// 			
+			// 		}
+			// 	}
+			// }
+			//a定义 -> a.[[scope]] -> 0: GO
+			//a执行 -> a.[[scope]] -> 0: aAO
+			//						  1: GO
+			//b定义 -> b.[[scope]] -> 0: aAO
+			//						  1: GO
+			//b执行 -> b.[[scope]] -> 0: bAO
+			//						  1: aGO
+			//						  2: GO
+			//c定义 -> c.[[scope]] -> 0: bAO
+			//						  1: aGO
+			//						  2: GO
+			//c执行 -> c.[[scope]] -> 0: cAO
+			//						  1: bGO
+			//						  2: aGO
+			//						  3: GO
+			//c销毁 -> c.[[scope]] -> 0: bAO
+			//						  1: aGO
+			//						  2: GO
+			//b销毁 -> b.[[scope]] -> 0: aAO
+			//						  1: GO
+			//		   c.[[scope]] -> X
+			//a销毁 -> a.[[scope]] -> 0: GO
+			//		   b.[[scope]] -> X	
+			
+			function test(){
+				var arr = [];
+				
+				for(var i = 0; i < 10; i++){
+					arr[i] = function (){
+						document.write(i + '  ');
+					}
+				}
+				
+				return arr;
+			}
+			
+			var arr = test();
+			
+			for(var i = 0; i < arr.length; i++){
+				arr[i]();
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			function test(){
+				var i = 100;
+				function add(){
+					i++;
+					console.log(i)
+				}
+				function reduce(){
+					i--;
+					console.log(i)
+				}
+				return [add, reduce];
+			}
+			var arr = test();
+			arr[0]();
+			arr[0]();
+			arr[1]();
+			arr[1]();
+			arr[1]();
+			arr[1]();
+			
+			//test执行时产生的AO 
+			//同时是函数add 和函数reduce 被定义时生成作用域链顶部的作用域 
+			//由于被return出全局 被全局的arr接收 
+			//所以当函数test执行结束时 函数add 和 函数reduce 作用域链不会被销毁
+			//由此产生了闭包
+			// test -> AO = {
+			// 	i: undefined -> 100,
+			// 	add: function add(){...},
+			// 	reduce: function reduce(){...},
+			// }
+			
+			//总结: 当内部函数被返回到外部并保存时, 一定会产生闭包, 闭包会产生原来的作用域链不释放.
+			//缺点: 过渡的闭包可能会导致内存泄漏, 或加载过慢.
+			
+			
+			function breadMgr(num){
+				// var breadNum = arguments[0] || 10;
+				// var breadNum = num || 10;
+				function supply(){
+					num+=10;
+					console.log(num)
+				}
+				function sale(){
+					num--;
+					console.log(num)
+				}
+				return [supply, sale];
+			}
+			var breadMgr = breadMgr(20)
+			breadMgr[0]();
+			breadMgr[1]();
+			breadMgr[1]();
+			breadMgr[1]();
+			
+			function sunSched(){
+				var sunSched = '';
+				return {
+					setSched: function(thing){
+						sunSched = thing
+					},
+					getSched: function(){
+						console.log('My schedule on sunday is ' + sunSched)
+					}
+				}
+			}
+			var sunSched = sunSched()
+			sunSched.setSched('studying');
+			sunSched.getSched();
+		</script>
+	</body>
+</html>

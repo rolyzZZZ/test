@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			var obj1 = {
+				age: 18,
+				name: '张三',
+				sex: 0,
+				width: 100,
+				children: {
+					child1: {
+						name: '李四',
+						age: 10
+					},
+					child2: {
+						name: '李三',
+						age: 11
+					},
+					child3: {
+						name: '李二',
+						age: 12
+					},
+				},
+				arr: [1, 2, 3, 'num']
+			}
+			
+			var obj2 = deepClone(obj1);
+			
+			obj2.children.child4 = {
+				name: '李一',
+				age: 13
+			}
+			console.log(obj1, obj2);
+			
+			
+			// 浅拷贝
+			function clone(origin, target){
+				var target = target || {};
+				for(var key in origin){
+					target[key] = origin[key];
+				}
+				return target;
+			}
+			
+			// 深拷贝
+			function deepClone(origin, target){
+				var target = target || {},
+					toStr = Object.prototype.toString;
+				for(var key in origin){
+					if(origin.hasOwnProperty(key)){
+						if(typeof(origin[key]) === 'object' && origin[key] !== null){
+							toStr.call(origin[key]) === '[object Object]' ? target[key] = {} : target[key] = [];
+							// 递归
+							deepClone(origin[key], target[key]);
+						}else {
+							target[key] = origin[key];
+						}
+					}
+				}
+				
+				return target;
+			}
+		</script>
+	</body>
+</html>

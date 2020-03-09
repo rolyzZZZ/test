@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			// 圣杯模式是为了解决 原型继承的问题 
+			// 问题复述
+			
+			// function Teacher(){}
+			// Teacher.prototype.skill = 'js';
+			// var teacher = new Teacher();
+			// 
+			// function Student(){
+			// 	this.name = '张三';
+			// }
+			// Student.prototype = Teacher.prototype;
+			// var student = new Student();
+			//这时如果改变Student.prototype的值 Teacher.prototype也会跟着改变
+			// Student.prototype.age = 18;
+			// console.log(student);
+			// console.log(teacher);
+			
+			
+			//此时 nb的圣杯模式出现
+			
+			// function Buffer(){}
+			// Buffer.prototype = Teacher.prototype;
+			// var buffer = new Buffer(); // -> 圣杯
+			// Student.prototype = buffer;
+			// Student.prototype.age = 18;
+			// var student = new Student();
+			// console.log(student);
+			// console.log(teacher);
+			
+			
+			// 封装圣杯模式
+			// function inherit(Target, Origin){
+			// 	function Buffer(){}
+			// 	Buffer.prototype = Origin.prototype;
+			// 	Target.prototype = new Buffer();
+			// 	Target.prototype.constructor = Target; // 自定义constructor  使其指向自己
+			// 	Target.prototype.super_class = Origin; // 添加继承源
+			// }
+			
+			// 企业级写法
+			var inherit = (function (){
+				var Buffer = function(){}
+				return function (Target, Origin){
+					Buffer.prototype = Origin.prototype;
+					Target.prototype = new Buffer();
+					Target.prototype.constructor = Target;
+					Target.prototype.super_class = Origin;
+				}
+			})();
+			
+			function Teacher(){}
+			Teacher.prototype.age = 18;
+			function Student(){}
+			inherit(Student, Teacher);
+			Student.prototype.name = '张三';
+			console.log(new Student());
+			console.log(new Teacher());
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<div>
+			<ul>
+				<li>
+					<p>
+						<span></span>
+					</p>
+				</li>
+			</ul>
+		</div>
+		
+		<script type="text/javascript">
+			var span = document.getElementsByTagName('span')[0];
+			
+			Element.prototype.elemParent = function (n){
+				var type = typeof(n),
+					elem = this;
+				if(type === undefined || type !=='number'){
+					return elem.parentNode;
+				}else if(n < 0){
+					return undefined;
+				}
+				
+				while(n){
+					if(elem.nodeName === 'HTML'){
+						elem = null;
+						return elem;
+					}
+					elem = elem.parentNode;
+					n--;
+					
+				}
+				return elem;
+			}
+			console.log(span.elemParent(7));
+		</script>
+	</body>
+</html>

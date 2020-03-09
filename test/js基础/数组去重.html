@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			var arr = [0,0,0,1,1,2,2,3,3,4,4,'a','a','b',5];
+			Array.prototype.unique = function (){
+				var temp = {},
+					newArr = [];
+				for(var i = 0; i < this.length; i++){
+					if(!temp.hasOwnProperty(this[i])){
+						temp[this[i]] = this[i];
+						newArr.push(this[i]);
+					}
+				}
+				return newArr;
+			}
+			console.log(arr.unique());
+		</script>
+	</body>
+</html>

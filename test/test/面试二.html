@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			// var a = 1;
+			// function test(){
+			// 	var a = 2;
+			// 	this.a = 3;
+			// 	console.log(a);
+			// }
+			// test(); // 2
+			// new test();// 2
+			// console.log(a) // 3 this -> 全局 this.a修改的是GO里的a 也就是window.a
+			
+			var a = 5;
+			function test(){
+				a = 0;
+				console.log(a); // 1. 0  2.0
+				console.log(this.a); // 1. 5  2. undefined
+				var a;
+				console.log(a); // 1. 0  2. 0
+			}
+			
+			test();
+			new test();
+		</script>
+	</body>
+</html>

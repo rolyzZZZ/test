@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			var p = {
+				age: 18
+			}
+			
+			function Person(name, sex){
+				console.log(this);
+				console.log(this.age);
+				console.log(name);
+				console.log(sex);
+			}
+			
+			Function.prototype.bindy = function (context){
+				var _self = this;
+				var agrs = Array.prototype.slice.call(arguments, 1);
+				
+				function fn(){
+					// console.log(this);
+					// console.log(_self);
+					var newAgrs = Array.prototype.slice.call(arguments)
+					_self.apply(this instanceof _self ? this : context, agrs.concat(newAgrs));
+				}
+				
+				console.log(fn.prototype);
+				fn.prototype = this.prototype;
+				console.log(fn.prototype);
+				return fn
+			}
+			
+			var p2 = Person.bindy(p, '张三');
+			// new p2('男');
+			p2('男');
+		</script>
+	</body>
+</html>
